@@ -30,10 +30,11 @@
         @if( Auth::user()->is_admin == 1 && $question->total_votes == 0)
             <a href="{{ action('QuestionController@edit', ["id"=>$question->id]) }}" class="btn btn-primary">Edit</a>
             @if($question->active == 1)
-                <a href="{{ action('QuestionController@archive', ["id"=>$question->id]) }}" onclick="if( confirm('Are you sure you want to archive this poll?') == false){ return false;}" class="btn btn-danger">Archive</a>
+                <a href="{{ action('QuestionController@archive', ["id"=>$question->id]) }}" onclick="if( confirm('Are you sure you want to archive this poll?') == false){ return false;}" class="btn btn-warning">Archive</a>
             @else
                 <a href="{{ action('QuestionController@activate', ["id"=>$question->id]) }}" class="btn btn-success">Activate</a>
             @endif
+            <a href="{{ action('QuestionController@delete', ["id"=>$question->id]) }}" class="btn btn-danger" onclick="if( confirm('Are you sure you want to delete this poll?') == false){ return false;}">Delete Poll</a>
         @endif
     </form>
 </div>
