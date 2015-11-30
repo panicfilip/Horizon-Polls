@@ -107,12 +107,11 @@ class UserController extends Controller
         return redirect("/users")->with('messages', 'User was deleted');
     }
 
-    public static function destroy($id)
+    public static function delete($id)
     {
         $user = User::findOrFail($id);
                 
-        $user->active = 0;
-        $user->save();
+        $user->delete();
 
         return redirect("/users")->with('messages', 'User was deactivated');
     }
