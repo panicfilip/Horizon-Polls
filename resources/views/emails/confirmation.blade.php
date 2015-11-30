@@ -1,0 +1,1 @@
+Click <a href="{{ URL::to('/') }}/auth/confirmation/{{ $data }}">here</a> to activate your account.
