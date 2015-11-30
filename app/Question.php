@@ -56,35 +56,25 @@ class Question extends Model implements SluggableInterface
 
     public function scopeGetUnansweredQuestions($query, $sort_field="questions.id", $sort_type="questions.desc"){
             
-        return $query->leftJoin(\DB::raw('(
-            SELECT question_id
-            FROM votes
-            WHERE user_id = '.\Auth::user()->id.') votes'), function($join)
-        {
-            $join->on('questions.id', '=', 'votes.question_id');
-        })
-        ->where("questions.active",1)
-        ->where("questions.question_type",2)
-        ->select("questions.*")
-        ->orderBy($sort_field, $sort_type)
-        ->get();
+        return $query->leftJoin('votes AS v', 'questions.id', '=', 'v.question_id')
+                    ->whereNull("v.user_id")
+                    ->where("questions.active",1)
+                    ->where("questions.question_type",2)
+                    ->select("questions.*")
+                    ->orderBy($sort_field, $sort_type)
+                    ->get();
 
     }
 
     public function scopeGetAnsweredQuestions($query, $sort_field="questions.id", $sort_type="questions.desc"){
-         
-        return $query->join(\DB::raw('(
-            SELECT question_id
-            FROM votes
-            WHERE user_id = '.\Auth::user()->id.') votes'), function($join)
-        {
-            $join->on('questions.id', '=', 'votes.question_id');
-        })
-        ->where("questions.active",1)
-        ->where("questions.question_type",2)
-        ->select("questions.*")
-        ->orderBy($sort_field, $sort_type)
-        ->get();
+        
+        return $query->leftJoin('votes AS v', 'questions.id', '=', 'v.question_id')
+                    ->where("v.user_id",\Auth::user()->id)
+                    ->where("questions.active",1)
+                    ->where("questions.question_type",2)
+                    ->select("questions.*")
+                    ->orderBy($sort_field, $sort_type)
+                    ->get();
                     
     }
 }
