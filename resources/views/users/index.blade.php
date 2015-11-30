@@ -20,7 +20,7 @@
                     @else
                         <a href="{{ action('UserController@admin', ["id"=>$user->id]) }}" class="btn btn-primary">Make admin user</a>
                     @endif
-                    <a href="{{ action('UserController@destroy', ["id"=>$user->id]) }}" class="btn btn-danger" onclick="if( confirm('Are you sure you want to delete this user?') == false){ return false;}">Delete user</a>
+                    <a href="{{ action('UserController@delete', ["id"=>$user->id]) }}" class="btn btn-danger" onclick="if( confirm('Are you sure you want to delete this user?') == false){ return false;}">Delete user</a>
                 @endforeach
         </div>
     @else
