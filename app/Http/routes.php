@@ -37,16 +37,18 @@ Route::group(array('before'=>'auth|role:admin'), function(){
     Route::get('/users/{id}/regular', 'UserController@regular');
     Route::get('/users/{id}/activate', 'UserController@activate');
     Route::get('/users/{id}/deactivate', 'UserController@deactivate');
+    Route::get('/users/{id}/delete', 'UserController@delete');
     Route::resource('/users', 'UserController');
     Route::get('/profile/{email}', 'UserController@profile');
     Route::get('/poll/{id}/archive', 'QuestionController@archive');
     Route::get('/poll/{id}/activate', 'QuestionController@activate');
+    Route::get('/poll/{id}/delete', 'QuestionController@delete');
     Route::resource('/poll', 'QuestionController'); 
 });
 
 Route::group(array('before'=>'auth|role:logged'), function(){ 
-	Route::get('/public-polls', 'QuestionController@publicQuestions');
-	Route::get('/logout', 'Auth\AuthController@getLogout');
+    Route::get('/public-polls', 'QuestionController@publicQuestions');
+    Route::get('/logout', 'Auth\AuthController@getLogout');
     Route::get('/polls/{slug}', 'QuestionController@show');
     Route::get('/unanswered', 'QuestionController@unanswered');
     Route::get('/answered', 'QuestionController@answered');
