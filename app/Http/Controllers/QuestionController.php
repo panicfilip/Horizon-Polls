@@ -175,4 +175,13 @@ class QuestionController extends Controller
 
         return view('questions.index')->with($data);
     }
+    
+    public static function delete($id)
+    {
+        $question = Question::findOrFail($id);
+        
+        $question->delete();
+
+        return redirect("/")->with('messages', 'Poll was deleted');
+    }
 }
